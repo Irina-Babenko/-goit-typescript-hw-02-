@@ -5,6 +5,7 @@
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
+    "typeRoots": ["./node_modules/@types", "./src/vite-env.d.ts"],
 
     /* Bundler mode */
     "moduleResolution": "bundler",

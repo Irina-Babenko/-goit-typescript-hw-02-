@@ -6,7 +6,7 @@ import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
 import ImageModal from "../ImageModal/ImageModal";
 import { fetchPicturesWithQuery } from "../../unsplash-api";
-import { Image, AppState } from "./App.types";
+import { Image, AppProps } from "./App.types";
 import css from "./App.module.css";
 
 const App: React.FC<AppProps> = () => {
@@ -17,7 +17,7 @@ const App: React.FC<AppProps> = () => {
   const [error, setError] = useState<string>("");
   const [showModal, setShowModal] = useState<boolean>(false);
   const [modalImage, setModalImage] = useState<Image | null>(null);
-  const lastPictureRef = useRef<HTMLDivElement | null>(null);
+  const lastPictureRef = useRef<HTMLLIElement | null>(null);
 
   useEffect(() => {
     if (!query) return;
@@ -68,12 +68,20 @@ const App: React.FC<AppProps> = () => {
     setModalImage(null);
   };
 
+  const mappedImages = images.map((img) => ({
+    id: img.id,
+    urls: {
+      small: img.urls.small,
+    },
+    alt_description: img.alt_description || "Image description",
+  }));
+
   return (
     <div className={css.appContainer}>
       <SearchBar onSearch={handleSearch} />
       {error && <ErrorMessage message={error} />}
       <ImageGallery
-        items={images}
+        items={mappedImages}
         onImageClick={handleImageClick}
         lastPictureRef={lastPictureRef}
       />

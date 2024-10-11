@@ -1,7 +1,11 @@
-import PropTypes from 'prop-types';
-import css from './LoadMoreBtn.module.css';
+import React from "react";
+import { LoadMoreBtnProps } from "./LoadMoreBtn.types";
+import css from "./LoadMoreBtn.module.css";
 
-const LoadMoreBtn = ({ onClick = () => {}, isLoading = false }) => {
+const LoadMoreBtn: React.FC<LoadMoreBtnProps> = ({
+  onClick = () => {},
+  isLoading = false,
+}) => {
   return (
     <div className={css.container}>
       <button
@@ -10,15 +14,10 @@ const LoadMoreBtn = ({ onClick = () => {}, isLoading = false }) => {
         onClick={onClick}
         disabled={isLoading}
       >
-        {isLoading ? 'Loading...' : 'Load More'}
+        {isLoading ? "Loading..." : "Load More"}
       </button>
     </div>
   );
-};
-
-LoadMoreBtn.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool,
 };
 
 export default LoadMoreBtn;

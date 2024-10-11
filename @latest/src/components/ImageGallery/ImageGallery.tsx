@@ -1,13 +1,24 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import ImageCard from '../ImageCard/ImageCard';
-import css from './ImageGallery.module.css';
+import React from "react";
+import ImageCard from "../ImageCard/ImageCard";
+import css from "./ImageGallery.module.css";
 
-export default function ImageGallery({
+interface ImageGalleryProps {
+  items: Array<{
+    id: string;
+    urls: {
+      small: string;
+    };
+    alt_description: string;
+  }>;
+  onImageClick: (image: any) => void;
+  lastPictureRef: React.RefObject<HTMLLIElement>;
+}
+
+const ImageGallery: React.FC<ImageGalleryProps> = ({
   items,
   onImageClick,
   lastPictureRef = null,
-}) {
+}) => {
   return (
     <ul className={css.galleryContainer}>
       {items.map((item, index) => {
@@ -34,10 +45,6 @@ export default function ImageGallery({
       })}
     </ul>
   );
-}
-
-ImageGallery.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.object).isRequired,
-  onImageClick: PropTypes.func.isRequired,
-  lastPictureRef: PropTypes.object,
 };
+
+export default ImageGallery;
